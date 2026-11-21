@@ -92,13 +92,28 @@ class IceCreamMainWindow(QMainWindow):
 
         # TODO: open the file for reading, scan its data into
         #       self.temperatures and self.revenues, then call self.plot_graph()
+        with open(self.selected_file ,'r') as f:
+            x_values = []
+            y_values = []
+            next(f)
+            for line in f:
+                x, y = line.strip().split(",")
+                x_values.append(float(x))
+                y_values.append(float(y))
+            self.temperatures = x_values
+            self.revenues = y_values
+            self.plot_graph()
+                
 
     def plot_graph(self):
-        # Temporary graph - TODO: edit this method so it draws the correct graph
         self.figure.clear()
         ax = self.figure.add_subplot(111)
-        ax.plot([1, 2, 3, 4], [1, 4, 9, 16])
-        ax.set_title("Temporary Graph")
+        ax.scatter(self.temperatures, self.revenues, s=1)
+        ax.spines["top"].set_visible(False)
+        ax.spines["right"].set_visible(False)
+        ax.set_title("Revenue vs Temperature")
+        ax.set_xlabel("Temperature")
+        ax.set_ylabel("Revenue")
         self.canvas.draw()
 
     def open_about_window(self):
