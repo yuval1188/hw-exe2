@@ -1,5 +1,6 @@
 from pathlib import Path
 
+import numpy as np
 from matplotlib.backends.backend_qtagg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.backends.backend_qtagg import NavigationToolbar2QT as NavigationToolbar
 from matplotlib.figure import Figure
@@ -109,6 +110,12 @@ class IceCreamMainWindow(QMainWindow):
         self.figure.clear()
         ax = self.figure.add_subplot(111)
         ax.scatter(self.temperatures, self.revenues, s=1)
+        if self.temperatures:
+            m, b = np.polyfit(self.temperatures, self.revenues, 1)
+            x_line = np.linspace(min(self.temperatures), max(self.temperatures), 100)
+            y_line = m * x_line + b
+            ax.plot(x_line, y_line, color="red", linewidth=2, label=f"y = {m:.2f}x + {b:.2f}")
+            ax.legend()
         ax.spines["top"].set_visible(False)
         ax.spines["right"].set_visible(False)
         ax.set_title("Revenue vs Temperature")
