@@ -44,7 +44,6 @@ class IceCreamMainWindow(QMainWindow):
         self.setWindowTitle("Ice Cream Revenue vs. Temperature")
         self.setMinimumSize(900, 680)
 
-        # Data lists - filled when a file is loaded
         self.temperatures = []
         self.revenues = []
 
@@ -52,7 +51,6 @@ class IceCreamMainWindow(QMainWindow):
         self.setCentralWidget(central_widget)
         main_layout = QVBoxLayout(central_widget)
 
-        # Top bar: select file button + file name + about button
         top_bar = QHBoxLayout()
         self.select_file_btn = QPushButton("Select Data File", self)
         self.select_file_btn.clicked.connect(self.open_file_dialog)
@@ -65,7 +63,6 @@ class IceCreamMainWindow(QMainWindow):
         top_bar.addWidget(self.about_btn)
         main_layout.addLayout(top_bar)
 
-        # Matplotlib graph + toolbar (zoom, pan, save graph as file)
         self.figure = Figure()
         self.canvas = FigureCanvas(self.figure)
         self.toolbar = NavigationToolbar(self.canvas, self)
@@ -81,11 +78,10 @@ class IceCreamMainWindow(QMainWindow):
 
         self.file_label.setText(os.path.basename(file_path))
 
-        # Read the file into the two lists
         self.temperatures = []
         self.revenues = []
         f = open(file_path, "r")
-        f.readline()  # skip the header line
+        f.readline()
         for line in f:
             parts = line.strip().split(",")
             self.temperatures.append(float(parts[0]))
@@ -98,22 +94,17 @@ class IceCreamMainWindow(QMainWindow):
         self.figure.clear()
         ax = self.figure.add_subplot(111)
 
-        # Scatter plot: temperature on X, revenue on Y, point size 1
         ax.scatter(self.temperatures, self.revenues, s=1)
 
-        # Trend line - only when there is data
         if len(self.temperatures) > 0:
-            # polyfit with degree 1 returns the slope (m) and intercept (b) of y = m*x + b
             m, b = np.polyfit(self.temperatures, self.revenues, 1)
 
-            # A straight line needs only two points: the lowest and highest temperature
             x1 = min(self.temperatures)
             x2 = max(self.temperatures)
             ax.plot([x1, x2], [m * x1 + b, m * x2 + b], color="red",
                     label="y = " + str(round(m, 2)) + "x + " + str(round(b, 2)))
             ax.legend()
 
-        # Remove the top and right lines of the frame
         ax.spines["top"].set_visible(False)
         ax.spines["right"].set_visible(False)
 
@@ -130,7 +121,6 @@ class IceCreamMainWindow(QMainWindow):
 if __name__ == "__main__":
     app = QApplication([])
 
-    # Load the QSS style file (it sits in the same folder as this file)
     qss_path = os.path.join(os.path.dirname(__file__), "exe2_style.qss")
     style_file = open(qss_path, "r", encoding="utf-8")
     app.setStyleSheet(style_file.read())
