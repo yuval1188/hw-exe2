@@ -1,5 +1,6 @@
 from pathlib import Path
 
+import numpy as np
 from matplotlib.backends.backend_qtagg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.backends.backend_qtagg import NavigationToolbar2QT as NavigationToolbar
 from matplotlib.figure import Figure
@@ -116,6 +117,19 @@ class IceCreamMainWindow(QMainWindow):
         # Remove the top and right lines of the frame
         ax.spines["top"].set_visible(False)
         ax.spines["right"].set_visible(False)
+
+        # Linear regression: find the best-fit straight line y = m*x + b
+        if len(self.temperatures) >= 2:
+            x = np.array(self.temperatures)
+            y = np.array(self.revenues)
+            # np.polyfit(x, y, 1) fits a polynomial of degree 1 (a straight line)
+            # using least squares and returns the coefficients [m, b]
+            m, b = np.polyfit(x, y, 1)
+            x_line = np.linspace(x.min(), x.max(), 100)
+            y_line = m * x_line + b
+            ax.plot(x_line, y_line, color="#DC2626", linewidth=2,
+                    label=f"Best fit: y = {m:.2f}x + {b:.2f}")
+            ax.legend(loc="upper left", frameon=False)
 
         ax.set_title("Ice Cream Revenue vs. Temperature", fontsize=14, fontweight="bold")
         ax.set_xlabel("Temperature (°C)")
