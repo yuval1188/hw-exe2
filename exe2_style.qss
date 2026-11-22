@@ -5,7 +5,7 @@ QWidget {
     background-color: #FFF8F0;
     color: #3B2F2F;
     font-family: "Segoe UI", "Arial", sans-serif;
-    font-size: 14px;
+    font-size: 10pt;
 }
 
 /* Main Window & Dialogs */
@@ -17,7 +17,7 @@ QMainWindow, QDialog {
 QLabel {
     color: #5C4033;
     font-weight: 600;
-    font-size: 14px;
+    font-size: 10pt;
     background-color: transparent;
     padding: 0 8px;
 }
@@ -30,7 +30,7 @@ QPushButton {
     border-radius: 10px;
     padding: 10px 20px;
     font-weight: 700;
-    font-size: 14px;
+    font-size: 10pt;
 }
 
 QPushButton:hover {
@@ -79,7 +79,7 @@ QTextBrowser {
     border: 1px solid #F2C6CF;
     border-radius: 10px;
     padding: 12px;
-    font-size: 14px;
+    font-size: 10pt;
 }
 
 /* Tooltips */
