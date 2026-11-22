@@ -98,7 +98,7 @@ class IceCreamMainWindow(QMainWindow):
         self.canvas.draw()
 
     def open_about_window(self):
-        self.about_window = AboutWindow()
+        self.about_window = AboutWindow("https://github.com/yuval1188/hw-exe2")
         self.about_window.show()
 
 

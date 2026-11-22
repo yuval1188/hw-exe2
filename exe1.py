@@ -142,7 +142,7 @@ class GradesMainWindow(QMainWindow):
 
 
     def open_about_window(self):
-        self.about_window = AboutWindow()
+        self.about_window = AboutWindow("https://github.com/yuval1188/hw4-exe1")
         self.about_window.show()
 
 

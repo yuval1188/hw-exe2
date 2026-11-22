@@ -4,7 +4,7 @@ from PySide6.QtWidgets import QApplication, QLabel, QWidget
 
 class AboutWindow(QWidget):
 
-    def __init__(self):
+    def __init__(self, github_url):
         super().__init__()
         self.setWindowTitle("אודות")
         self.setFixedSize(400, 540)
@@ -40,7 +40,7 @@ class AboutWindow(QWidget):
         self.label_linkedin.setStyleSheet("font-size: 10pt; background: transparent; qproperty-alignment: 'AlignCenter';")
         self.label_linkedin.setOpenExternalLinks(True)
 
-        self.label_github = QLabel('GitHub: <a href="https://github.com/yuval1188/hw-exe2">https://github.com/yuval1188/hw-exe2</a>', self)
+        self.label_github = QLabel('GitHub: <a href="' + github_url + '">' + github_url + '</a>', self)
         self.label_github.setGeometry(30, 470, 340, 30)
         self.label_github.setStyleSheet("font-size: 10pt; background: transparent; qproperty-alignment: 'AlignCenter';")
         self.label_github.setOpenExternalLinks(True)
@@ -48,6 +48,6 @@ class AboutWindow(QWidget):
 
 if __name__ == "__main__":
     app = QApplication([])
-    window = AboutWindow()
+    window = AboutWindow("https://github.com/yuval1188/hw-exe2")
     window.show()
     app.exec()
