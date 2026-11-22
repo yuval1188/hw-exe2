@@ -4,38 +4,17 @@ import numpy as np
 from matplotlib.backends.backend_qtagg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.backends.backend_qtagg import NavigationToolbar2QT as NavigationToolbar
 from matplotlib.figure import Figure
+from AboutWindow import AboutWindow
 from PySide6.QtWidgets import (
     QApplication,
-    QDialog,
     QFileDialog,
     QHBoxLayout,
     QLabel,
     QMainWindow,
     QPushButton,
-    QTextBrowser,
     QVBoxLayout,
     QWidget,
 )
-
-
-class AboutWindow(QDialog):
-    def __init__(self, parent=None):
-        super().__init__(parent)
-        self.setWindowTitle("About")
-        self.setMinimumSize(460, 260)
-
-        layout = QVBoxLayout(self)
-        browser = QTextBrowser(self)
-        browser.setOpenExternalLinks(True)
-        browser.setHtml(
-            """
-            <h3>Yuval Nissim</h3>
-            <p><b>Email:</b> yuval6891@gmail.com</p>
-            <p><b>LinkedIn:</b> <a href="https://www.linkedin.com/in/yuval-nissim-832457397/">LinkedIn Profile</a></p>
-            <p><b>GitHub Repository:</b> <a href="https://github.com/yuval1188/hw-exe2">https://github.com/yuval1188/hw-exe2</a></p>
-            """
-        )
-        layout.addWidget(browser)
 
 
 class IceCreamMainWindow(QMainWindow):
@@ -119,8 +98,8 @@ class IceCreamMainWindow(QMainWindow):
         self.canvas.draw()
 
     def open_about_window(self):
-        about_dialog = AboutWindow(self)
-        about_dialog.exec()
+        self.about_window = AboutWindow()
+        self.about_window.show()
 
 
 if __name__ == "__main__":
