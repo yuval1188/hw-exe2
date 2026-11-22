@@ -44,12 +44,14 @@ class IceCreamMainWindow(QMainWindow):
         self.setWindowTitle("Ice Cream Revenue vs. Temperature")
         self.setMinimumSize(900, 680)
 
+
         self.temperatures = []
         self.revenues = []
 
         central_widget = QWidget(self)
         self.setCentralWidget(central_widget)
         main_layout = QVBoxLayout(central_widget)
+
 
         top_bar = QHBoxLayout()
         self.select_file_btn = QPushButton("Select Data File", self)
@@ -78,10 +80,11 @@ class IceCreamMainWindow(QMainWindow):
 
         self.file_label.setText(os.path.basename(file_path))
 
+
         self.temperatures = []
         self.revenues = []
         f = open(file_path, "r")
-        f.readline()
+        f.readline()  
         for line in f:
             parts = line.strip().split(",")
             self.temperatures.append(float(parts[0]))
@@ -94,10 +97,12 @@ class IceCreamMainWindow(QMainWindow):
         self.figure.clear()
         ax = self.figure.add_subplot(111)
 
+
         ax.scatter(self.temperatures, self.revenues, s=1)
 
         if len(self.temperatures) > 0:
             m, b = np.polyfit(self.temperatures, self.revenues, 1)
+
 
             x1 = min(self.temperatures)
             x2 = max(self.temperatures)
