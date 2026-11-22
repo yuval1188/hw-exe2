@@ -3,9 +3,9 @@ import subprocess
 import sys
 from pathlib import Path
 from PySide6.QtCore import Qt
+from AboutWindow import AboutWindow
 from PySide6.QtWidgets import (
     QApplication,
-    QDialog,
     QFileDialog,
     QHBoxLayout,
     QLabel,
@@ -14,30 +14,9 @@ from PySide6.QtWidgets import (
     QSpinBox,
     QTableWidget,
     QTableWidgetItem,
-    QTextBrowser,
     QVBoxLayout,
     QWidget,
 )
-
-
-class AboutWindow(QDialog):
-    def __init__(self, parent=None):
-        super().__init__(parent)
-        self.setWindowTitle("About")
-        self.setMinimumSize(460, 260)
-
-        layout = QVBoxLayout(self)
-        browser = QTextBrowser(self)
-        browser.setOpenExternalLinks(True)
-        browser.setHtml(
-            """
-            <h3>Yuval Nissim</h3>
-            <p><b>Email:</b> yuval6891@gmail.com</p>
-            <p><b>LinkedIn:</b> <a href="https://www.linkedin.com/in/yuval-nissim-832457397/">LinkedIn Profile</a></p>
-            <p><b>GitHub Repository:</b> <a href="https://github.com/YOUR_USERNAME/YOUR_REPO">GitHub Repository</a></p>
-            """
-        )
-        layout.addWidget(browser)
 
 
 class GradesMainWindow(QMainWindow):
@@ -163,8 +142,8 @@ class GradesMainWindow(QMainWindow):
 
 
     def open_about_window(self):
-        about_dialog = AboutWindow(self)
-        about_dialog.exec()
+        self.about_window = AboutWindow()
+        self.about_window.show()
 
 
 def load_stylesheet(app: QApplication, qss_path: str = "style.qss"):
